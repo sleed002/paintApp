@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{%block base%}
+        <br>
+        <h1 class="animated bounceInRight">Welcome to the Art-O-Gram Gallery!</h1>
+        {% if files %}
+          <br>
+          <div class="container animated fadeInUpBig">
+              <div class="row">
+              {% for file in files %}
+                <div class="col-md-4" >
+                  <ul class="text-info card-title" style="width: 20rem;">
+                    <a href="{% url 'view' file.id %}">
+                      <h5 class="list-group-item">{{ file.title }}</h5>
+                      <h7 class="list-group-item">
+                      {% if 'sent from' in file.title%}
+                        For
+                      {% else %}
+                        By
+                      {% endif %}
+                        {# wrap the canvas image in the div containing the background #}
+                      <span class="text-info">{{ file.artist }}</span> on {{ file.prettify_datetime}}</h5>
+                      <div class="bg" style="background: {{file.background}}; background-size: contain">
+                        <img src="{{file.canvas_image}}" height="300px" class="img-fluid" alt="Responsive image">
+                      </div>
+                    </a>
+                  </ul>
+                </div>
+               {% endfor %}
+              </div>
+          </div>
+        {% else %}
+          <h2 class="mt-5 text-light text-center">Sorry, there are no drawings to display</h2>
+        {% endif %}
+{%endblock%}

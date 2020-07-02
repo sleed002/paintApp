@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+{% block base %}
+{# The user profile page #}
+    {% if user.first_name%}
+      <br>
+      <h1 class="animated bounceInRight">Welcome, {{user.first_name}}</h1>
+    {%else%}
+    {# The super user won't have a first name so use their username #}
+      <br>
+      <h1 class="animated bounceInRight">Welcome, {{user}}</h1>
+    {%endif%}
+      </div>
+      <br>
+    {% if files %}
+      <div class="container animated fadeInUpBig">
+        <div class="row justify-space-around">
+        {% for file in files %}
+          <div class="col-md-6">
+            <div class="text-info card-title" style="width: 40rem;">
+            </div>
+            {# wrap the canvas image in the div containing the background #}
+            <h5 class="list-group-item">{{ file.title }}</h5>
+            <h7 class="list-group-item">By {{ file.artist }} on {{ file.prettify_datetime}}</h5>
+            <div style="background: {{file.background}}; background-size: contain">
+              <image src="{{file.canvas_image}}" height="300px" class="img-fluid" alt="Responsive image">
+            </div>
+            <br>
+            <div>
+              {# The edit and delete buttons are here #}
+              <a href="{% url 'update' file.id %}" class="btn btn-sm btn-info">
+                <i class="fas fa-edit"></i>
+                Edit Drawing
+              </a>
+              <a href="javascript:{document.getElementById('delete-{{file.id}}').submit()}" class="btn btn-sm btn-warning">
+                <i class="fas fa-trash-alt"></i>
+                Delete Drawing
+              </a>
+          </div>
+            <form id="delete-{{file.id}}"
+            action="{% url 'delete' file.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden"/>
+            </form>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    {%else%}
+      <h2 class="mt-5 text-light text-center">You haven't added any drawings yet</h2>
+    {%endif%}
+    <br>
+  </div>
+</div>
+{% endblock %}

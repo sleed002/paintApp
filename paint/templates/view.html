@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+{%block base%}
+{% load static %}
+<br>
+{# The individual photo page #}
+<h1 class="animated bounceInRight">{{view_file.title}}</h1>
+<h2 class="animated bounceInRight">
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  {% if 'sent from' in view_file.title%}
+    For
+  {% else %}
+    By
+  {% endif %}
+  {{view_file.artist}}
+</h2>
+
+<div id="pic" width="750px" height="450px" style="border: 5px solid #000000; background: {{view_file.background}};">
+  <img src="{{view_file.canvas_image}}" width="750px" height="450px">
+</div>
+<br>
+<br>
+
+{%endblock%}

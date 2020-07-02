@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block base %}
+{# This is the signup page for new users #}
+<div class="mt-5 row">
+  <div class="mb-5 col-md-4">
+    {% if registered %}
+      <div class="jumbotron">
+        <h4 class="text-center text-info">Thank you for Registering</h4>
+        <a class="mt-5 btn btn-primary form-control"href="{% url 'login'%}">Click Here to Login</a>
+      </div>
+    {% else %}
+  </div>
+  <div class="mb-5 col-md-4">
+    <h2 class="mt-5 text-center text-dark">Sign Up Below</h2>
+    <form action="{% url 'signup'%}" method="POST">
+      {% csrf_token %}
+      {%for field in signup_form %}
+        {%if field.name == 'password'%}
+          <div class="text-light">{{field.label}}
+            <input class="form-control" type="password"name="{{field.name}}"/>
+        {%else%}
+          <div class="text-light">{{field.label}}
+            <input class="form-control" name="{{field.name}}"/>
+          {% endif %}
+      {%endfor%}
+        <input class="mt-5 btn btn-primary form-control"type="submit" value="Register">
+    </form>
+    {% endif %}
+      </div>
+    </div>
+<div class="mt-5 row"></div>
+</div>
+{% endblock%}

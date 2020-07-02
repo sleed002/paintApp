@@ -1,0 +1,40 @@
+{%extends 'base.html' %}
+{%block base%}
+<br>
+<h1 class="animated bounceInRight">Add to your Art-O-Gram!</h1>
+{% load static %}
+
+<canvas id="paint" width="750" height="450" style="border: 5px solid #000000; background: {{update_file.background}}; background-image: url('{{update_file.canvas_image}}')">Canvas not supported in this Browser</canvas>
+<div id ="hidden" style="background-image: url('{{update_file.canvas_image}}')"></div>
+<br>
+{#source =https://nidhinp.wordpress.com/2014/02/19/paint-app-in-django/ #}
+<button id="penciltool" type="button" style="height: 25px; width: 100px;" onclick="pencil()">Pencil</button>
+<button id="linetool" type="button" style="height: 25px; width: 100px;" onclick="line()">Line</button>
+<button id="rectangletool" type="button" style="height: 25px; width: 100px;" onclick="rectangle()">Rectangle</button>
+<button id="circletool" type="button" style="height: 25px; width: 100px;" onclick="circle()">Circle</button>
+<button id="erasertool" type="button" style="height: 25px; width: 100px;" onclick="eraser()">Eraser</button>
+<button id="resettool" type="button" style="height: 25px; width: 100px;" onclick="reset()">Reset</button>
+ {% csrf_token %}
+<label class=text-light>file name</label><input id="fname" value={{update_file.title}} type="text"><button id="update" onclick="update()">Save</button>
+<br>
+{#the color code below is my code #}
+<button id="red" type="button" style="height: 25px; width: 100px; background-color: #f44336;" onclick=color('#f44336')></button>
+<button id="orange" type="button" style="height: 25px; width: 100px; background-color: #ffa500" onclick=color('#ffa500')></button>
+<button id="yellow" type="button" style="height: 25px; width: 100px; background-color: #ffff00" onclick=color('#ffff00')></button>
+<button id="green" type="button" style="height: 25px; width: 100px; background-color: #008000" onclick=color('#008000')></button>
+<button id="blue" type="button" style="height: 25px; width: 100px; background-color: #0000FF" onclick=color('#0000FF')></button>
+<button id="purple" type="button" style="height: 25px; width: 100px; background-color: #800080" onclick=color('#800080')></button>
+<button id="black" type="button" style="height: 25px; width: 100px; background-color: #8B4513" onclick=color('#8B4513')></button>
+<button id="black" type="button" style="height: 25px; width: 100px; background-color: #ffffff" onclick=color('#ffffff')></button>
+<button id="black" type="button" style="height: 25px; width: 100px; background-color: #000000" onclick=color('#000000')></button>
+
+<label class=text-light>Line Width</label>
+            <button id="pixel_plus" type="button" onclick="add_pixel()" style="width: 25px;">+</button>
+            <button id="pixel_minus" type="button" onclick="reduce_pixel()" style="width: 25px;">-</button>
+{#source =https://nidhinp.wordpress.com/2014/02/19/paint-app-in-django/ #}
+
+{#I had to update the JQuery links below to include an integrity key and a non slim version#}
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60" crossorigin="anonymous"></script>
+<script src="{% static 'main.js' %}"></script>
+{#source code used an href I changed it to src to make it work#}
+{%endblock%}

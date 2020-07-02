@@ -1,0 +1,17 @@
+body{
+  background: #25A2B7;
+  font-family: 'Jua', sans-serif;
+}
+
+.bg:hover, img:hover {
+  -webkit-transform: scale(1.03);
+}
+
+#other, #choose {
+  visibility: hidden;
+}
+
+#pic {
+  max-width:750px;
+  min-width:750px;
+}
